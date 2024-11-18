@@ -1,4 +1,5 @@
 <?php
+//requerindo o arquivo para estanciar a class controller e chmar a função
 require_once('../../controllers/controller_usuario.php');
 $usuario = new controller_usuario;
 $matriz_banco = $usuario->list_database();
@@ -51,6 +52,7 @@ $matriz_banco = $usuario->list_database();
             <p>Databases</p>
             <li><a href="../criar_deletar_banco/criar_banco.php">Novo</a></li>
 
+            <!--transformando a matriz em um array-->
             <?php foreach ($matriz_banco as $banco) { ?>
                 <li>
                     <details>
@@ -59,10 +61,13 @@ $matriz_banco = $usuario->list_database();
                             <li><a href="../criar_deletar_tabela/criar_tabela.php">Nova</a></li>
 
                             <?php
+                            //chamando a função para lista as tabelas em cada banco
                             $matriz_tabela = $usuario->list_table($banco['Database']);
+                            //transformando a matriz em array
                             foreach ($matriz_tabela as $tabela) {
                             ?>
                                 <li>
+                                    <!--passando por via GET o nome do banco de o nome da tabela-->
                                     <a href="info_tabela.php?nome_banco=<?= $banco['Database'] ?>&nome_tabela=<?= $tabela['Tables_in_' . $banco['Database']] ?>"><?= $tabela['Tables_in_' . $banco['Database']] ?></a>
                                 </li>
                             <?php } ?>
@@ -100,8 +105,9 @@ $matriz_banco = $usuario->list_database();
 
 
                 <?php
+                //chamando a função para descrever a tabela
                 $desc_table = $usuario->desc_table($nome_banco, $nome_tabela);
-
+                //transformando a matriz em array
                 foreach ($desc_table as $value) {
                 ?>
                     <tr>
@@ -121,8 +127,9 @@ $matriz_banco = $usuario->list_database();
             <table>
                 <tr>
                     <?php
+                    //chamando a função para descrever a tabela
                     $desc_table = $usuario->desc_table($nome_banco, $nome_tabela);
-
+                    //transformando a matriz em array
                     foreach ($desc_table as $value) { ?>
 
                         <td><?= $value['Field'] ?></td>
@@ -131,13 +138,16 @@ $matriz_banco = $usuario->list_database();
 
 
                 <?php
+                //chamando a função para mostrar os dados que tem na tabela
                 $select_table = $usuario->select_table($nome_banco, $nome_tabela);
-
+                //transformando a matriz em array
                 foreach ($select_table as $dados) {
                 ?>
                     <tr>
-                        <?php $desc_table = $usuario->desc_table($nome_banco, $nome_tabela);
-
+                        <?php
+                        //chamando a função para descrever a tabela
+                        $desc_table = $usuario->desc_table($nome_banco, $nome_tabela);
+                        //transformando a matriz em array
                         foreach ($desc_table as $value) {
                         ?>
                             <td><?= $dados[$value['Field']] ?></td>

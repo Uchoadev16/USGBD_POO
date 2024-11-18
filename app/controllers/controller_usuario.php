@@ -1,17 +1,20 @@
 <?php
+//requerindo o arquivo model
+require_once('models/model_usuario.php');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/projetos php/SGBD 2.0/app/models/model_usuario.php');
-
+//criando a class
 class controller_usuario
 {
-
+    //atributos
     private $model;
 
+    //metodo especial
     function __construct()
     {
         $this->model = new model_usuario;
     }
 
+    //metodos
     function list_database()
     {
         $banco = $this->model->list_database();

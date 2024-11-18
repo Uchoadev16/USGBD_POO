@@ -1,4 +1,5 @@
 <?php
+//requerindo o arquivo para estanciar a class controller e chmar a função
 require_once('../../controllers/controller_usuario.php');
 $usuario = new controller_usuario;
 $matriz_banco = $usuario->list_database();
@@ -45,13 +46,12 @@ $matriz_banco = $usuario->list_database();
 
 <body>
     <nav>
-
         <ul>
-
             <h1><a href="../../index.php">USGBD</a></h1>
             <p>Databases</p>
             <li><a href="../criar_deletar_banco/criar_banco.php">Novo</a></li>
 
+            <!--transformando a matriz em um array-->
             <?php foreach ($matriz_banco as $banco) { ?>
 
                 <li>
@@ -61,10 +61,13 @@ $matriz_banco = $usuario->list_database();
                             <li><a href="criar_tabela.php?nome_banco=<?= $banco['Database'] ?>">Nova</a></li>
 
                             <?php
+                            //chamando a função para lista as tabelas em cada banco
                             $matriz_tabela = $usuario->list_table($banco['Database']);
+                            //transformando a matriz em array
                             foreach ($matriz_tabela as $tabela) {
                             ?>
                                 <li>
+                                    <!--passando por via GET o nome do banco de o nome da tabela-->
                                     <a href="../info_banco_tabela/info_tabela.php?nome_banco=<?= $banco['Database'] ?>&nome_tabela=<?= $tabela['Tables_in_' . $banco['Database']] ?>"><?= $tabela['Tables_in_' . $banco['Database']] ?></a>
                                 </li>
                             <?php } ?>

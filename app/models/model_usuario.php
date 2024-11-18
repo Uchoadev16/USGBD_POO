@@ -1,13 +1,17 @@
 <?php
+//requerindo o arquivo connect para se conectar com o banco de dados
+require_once('config/connect.php');
 
-require_once($_SERVER['DOCUMENT_ROOT'] . '/projetos php/SGBD 2.0/app/config/connect.php');
-
+//criando a class
 class model_usuario extends connect
 {
+    //atributos
     private $tables;
 
+    //metodo especial
     function __construct()
     {
+        //chamando 
         parent::__construct();
         $this->tables = '';
     }
